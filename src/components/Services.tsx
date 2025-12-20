@@ -1,4 +1,5 @@
 import { Shield, Search, Lock, Server, Users, FileWarning } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const services = [
   {
@@ -39,6 +40,28 @@ const services = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
+    },
+  },
+};
+
 export const Services = () => {
   return (
     <section id="services" className="py-4xl bg-background relative overflow-hidden">
@@ -47,7 +70,13 @@ export const Services = () => {
 
       <div className="container mx-auto px-md lg:px-xl relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-3xl">
+        <motion.div 
+          className="text-center max-w-2xl mx-auto mb-3xl"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+        >
           <span className="text-primary font-medium text-sm uppercase tracking-wider mb-md block">
             Our Services
           </span>
@@ -58,21 +87,34 @@ export const Services = () => {
             We provide end-to-end cybersecurity services to protect your organization
             from evolving digital threats.
           </p>
-        </div>
+        </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
-          {services.map((service, index) => (
-            <div
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          {services.map((service) => (
+            <motion.div
               key={service.title}
+              variants={itemVariants}
+              whileHover={{ 
+                y: -8, 
+                transition: { duration: 0.3 } 
+              }}
               className="group relative p-lg rounded-lg bg-card/50 border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
-              style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Icon Container */}
               <div className="mb-lg">
-                <div className="inline-flex p-3 rounded-lg bg-primary/10 border border-primary/20 group-hover:bg-primary/20 transition-colors duration-300">
+                <motion.div 
+                  className="inline-flex p-3 rounded-lg bg-primary/10 border border-primary/20 group-hover:bg-primary/20 transition-colors duration-300"
+                  whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.5 } }}
+                >
                   <service.icon className="w-6 h-6 text-primary" />
-                </div>
+                </motion.div>
               </div>
 
               {/* Content */}
@@ -85,9 +127,9 @@ export const Services = () => {
 
               {/* Hover Gradient */}
               <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
