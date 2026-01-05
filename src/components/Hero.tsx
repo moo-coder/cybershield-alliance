@@ -1,6 +1,7 @@
 import { Shield, Lock, Zap, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export const Hero = () => {
   return (
@@ -137,13 +138,17 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}
           >
-            <Button variant="cyber" size="xl" className="group w-full sm:w-auto">
-              Get Started
-              <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button variant="cyberOutline" size="xl" className="w-full sm:w-auto">
-              Learn More
-            </Button>
+            <Link to="/contact">
+              <Button variant="cyber" size="xl" className="group w-full sm:w-auto">
+                Get Started
+                <ChevronRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+            <Link to="/about">
+              <Button variant="cyberOutline" size="xl" className="w-full sm:w-auto">
+                Learn More
+              </Button>
+            </Link>
           </motion.div>
 
           {/* Trust Indicators */}
