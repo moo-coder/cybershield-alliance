@@ -1,61 +1,8 @@
 import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowRight, Tag } from 'lucide-react';
 import { useState } from 'react';
-
-const categories = ['All', 'Threat Intelligence', 'Cloud Security', 'Compliance', 'Best Practices'];
-
-const blogPosts = [
-  {
-    id: 1,
-    title: 'The Rise of AI-Powered Cyber Attacks in 2024',
-    excerpt: 'How artificial intelligence is being weaponized by threat actors and what organizations can do to defend against these sophisticated attacks.',
-    category: 'Threat Intelligence',
-    date: 'Jan 2, 2026',
-    readTime: '8 min read',
-    featured: true,
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80',
-  },
-  {
-    id: 2,
-    title: 'Zero Trust Architecture: Implementation Guide',
-    excerpt: 'A comprehensive guide to implementing zero trust security models in enterprise environments.',
-    category: 'Best Practices',
-    date: 'Dec 28, 2025',
-    readTime: '12 min read',
-    featured: false,
-    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80',
-  },
-  {
-    id: 3,
-    title: 'Cloud Security Posture Management Essentials',
-    excerpt: 'Understanding CSPM and why it\'s critical for organizations migrating to multi-cloud environments.',
-    category: 'Cloud Security',
-    date: 'Dec 20, 2025',
-    readTime: '6 min read',
-    featured: false,
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
-  },
-  {
-    id: 4,
-    title: 'GDPR and CCPA: A Compliance Checklist',
-    excerpt: 'Essential steps to ensure your organization meets data privacy regulations across jurisdictions.',
-    category: 'Compliance',
-    date: 'Dec 15, 2025',
-    readTime: '10 min read',
-    featured: false,
-    image: 'https://images.unsplash.com/photo-1432821596592-e2c18b78144f?w=800&q=80',
-  },
-  {
-    id: 5,
-    title: 'Ransomware Defense Strategies for SMBs',
-    excerpt: 'Cost-effective approaches to protect small and medium businesses from ransomware threats.',
-    category: 'Threat Intelligence',
-    date: 'Dec 10, 2025',
-    readTime: '7 min read',
-    featured: false,
-    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80',
-  },
-];
+import { Link } from 'react-router-dom';
+import { blogPosts, categories } from '@/data/blogPosts';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -152,49 +99,51 @@ export const Blog = () => {
           {featuredPost && (
             <motion.article
               variants={itemVariants}
-              className="lg:row-span-2 group cursor-pointer"
+              className="lg:row-span-2 group"
             >
-              <div className="h-full bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_40px_hsl(var(--primary)/0.15)]">
-                <div className="relative h-64 lg:h-80 overflow-hidden">
-                  <motion.img
-                    src={featuredPost.image}
-                    alt={featuredPost.title}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.6 }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
-                  <div className="absolute top-4 left-4">
-                    <span className="inline-flex items-center gap-1.5 bg-primary/90 text-primary-foreground px-3 py-1.5 rounded-full text-xs font-semibold">
-                      <Tag size={12} />
-                      Featured
+              <Link to={`/blog/${featuredPost.slug}`}>
+                <div className="h-full bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_40px_hsl(var(--primary)/0.15)]">
+                  <div className="relative h-64 lg:h-80 overflow-hidden">
+                    <motion.img
+                      src={featuredPost.image}
+                      alt={featuredPost.title}
+                      className="w-full h-full object-cover"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.6 }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                    <div className="absolute top-4 left-4">
+                      <span className="inline-flex items-center gap-1.5 bg-primary/90 text-primary-foreground px-3 py-1.5 rounded-full text-xs font-semibold">
+                        <Tag size={12} />
+                        Featured
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-6 lg:p-8">
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                      <span className="text-primary font-medium">{featuredPost.category}</span>
+                      <span className="flex items-center gap-1.5">
+                        <Calendar size={14} />
+                        {featuredPost.date}
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <Clock size={14} />
+                        {featuredPost.readTime}
+                      </span>
+                    </div>
+                    <h3 className="text-h4 font-heading font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-300">
+                      {featuredPost.title}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      {featuredPost.excerpt}
+                    </p>
+                    <span className="inline-flex items-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all duration-300">
+                      Read Article
+                      <ArrowRight size={18} />
                     </span>
                   </div>
                 </div>
-                <div className="p-6 lg:p-8">
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                    <span className="text-primary font-medium">{featuredPost.category}</span>
-                    <span className="flex items-center gap-1.5">
-                      <Calendar size={14} />
-                      {featuredPost.date}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <Clock size={14} />
-                      {featuredPost.readTime}
-                    </span>
-                  </div>
-                  <h3 className="text-h4 font-heading font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-300">
-                    {featuredPost.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    {featuredPost.excerpt}
-                  </p>
-                  <span className="inline-flex items-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all duration-300">
-                    Read Article
-                    <ArrowRight size={18} />
-                  </span>
-                </div>
-              </div>
+              </Link>
             </motion.article>
           )}
 
@@ -203,38 +152,40 @@ export const Blog = () => {
             <motion.article
               key={post.id}
               variants={itemVariants}
-              className="group cursor-pointer"
+              className="group"
             >
-              <div className="h-full bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_30px_hsl(var(--primary)/0.1)] flex flex-col sm:flex-row">
-                <div className="relative w-full sm:w-40 h-48 sm:h-auto overflow-hidden flex-shrink-0">
-                  <motion.img
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.6 }}
-                  />
-                </div>
-                <div className="p-5 flex flex-col justify-center">
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
-                    <span className="text-primary font-medium">{post.category}</span>
-                    <span className="flex items-center gap-1">
-                      <Clock size={12} />
-                      {post.readTime}
+              <Link to={`/blog/${post.slug}`}>
+                <div className="h-full bg-card rounded-2xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_30px_hsl(var(--primary)/0.1)] flex flex-col sm:flex-row">
+                  <div className="relative w-full sm:w-40 h-48 sm:h-auto overflow-hidden flex-shrink-0">
+                    <motion.img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.6 }}
+                    />
+                  </div>
+                  <div className="p-5 flex flex-col justify-center">
+                    <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
+                      <span className="text-primary font-medium">{post.category}</span>
+                      <span className="flex items-center gap-1">
+                        <Clock size={12} />
+                        {post.readTime}
+                      </span>
+                    </div>
+                    <h4 className="text-lg font-heading font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                      {post.title}
+                    </h4>
+                    <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                      {post.excerpt}
+                    </p>
+                    <span className="inline-flex items-center gap-1.5 text-sm text-primary font-medium group-hover:gap-2.5 transition-all duration-300">
+                      Read More
+                      <ArrowRight size={14} />
                     </span>
                   </div>
-                  <h4 className="text-lg font-heading font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300 line-clamp-2">
-                    {post.title}
-                  </h4>
-                  <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-                    {post.excerpt}
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-sm text-primary font-medium group-hover:gap-2.5 transition-all duration-300">
-                    Read More
-                    <ArrowRight size={14} />
-                  </span>
                 </div>
-              </div>
+              </Link>
             </motion.article>
           ))}
         </motion.div>
@@ -247,10 +198,13 @@ export const Blog = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-center mt-12"
         >
-          <button className="inline-flex items-center gap-2 px-8 py-3 bg-transparent border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-all duration-300">
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-2 px-8 py-3 bg-transparent border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-all duration-300"
+          >
             View All Articles
             <ArrowRight size={18} />
-          </button>
+          </Link>
         </motion.div>
       </div>
     </section>

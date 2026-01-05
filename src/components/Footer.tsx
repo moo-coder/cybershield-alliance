@@ -1,23 +1,24 @@
 import { Shield, Twitter, Linkedin, Github, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const footerLinks = {
   services: [
-    { name: 'Threat Detection', href: '#services' },
-    { name: 'Penetration Testing', href: '#services' },
-    { name: 'Security Consulting', href: '#services' },
-    { name: 'Cloud Security', href: '#services' },
+    { name: 'Threat Detection', to: '/services' },
+    { name: 'Penetration Testing', to: '/services' },
+    { name: 'Security Consulting', to: '/services' },
+    { name: 'Cloud Security', to: '/services' },
   ],
   company: [
-    { name: 'About Us', href: '#about' },
-    { name: 'Careers', href: '#' },
-    { name: 'Blog', href: '#blog' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'About Us', to: '/about' },
+    { name: 'Careers', to: '#' },
+    { name: 'Blog', to: '/blog' },
+    { name: 'Contact', to: '/contact' },
   ],
   legal: [
-    { name: 'Privacy Policy', href: '#' },
-    { name: 'Terms of Service', href: '#' },
-    { name: 'Cookie Policy', href: '#' },
+    { name: 'Privacy Policy', to: '#' },
+    { name: 'Terms of Service', to: '#' },
+    { name: 'Cookie Policy', to: '#' },
   ],
 };
 
@@ -63,17 +64,17 @@ export const Footer = () => {
         >
           {/* Brand Column */}
           <motion.div className="lg:col-span-2" variants={itemVariants}>
-            <motion.a 
-              href="#home" 
-              className="flex items-center gap-2 mb-lg"
+            <motion.div
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.2 }}
             >
-              <Shield className="w-8 h-8 text-primary" />
-              <span className="font-heading text-xl font-bold text-foreground">
-                Cyber<span className="text-primary">FZ</span>
-              </span>
-            </motion.a>
+              <Link to="/" className="flex items-center gap-2 mb-lg">
+                <Shield className="w-8 h-8 text-primary" />
+                <span className="font-heading text-xl font-bold text-foreground">
+                  Cyber<span className="text-primary">FZ</span>
+                </span>
+              </Link>
+            </motion.div>
             <p className="text-muted-foreground mb-xl max-w-sm leading-relaxed">
               Enterprise-grade cybersecurity solutions protecting businesses worldwide.
               Your security is our mission.
@@ -113,12 +114,12 @@ export const Footer = () => {
                   whileHover={{ x: 4 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.to}
                     className="text-muted-foreground hover:text-primary transition-colors duration-300"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </motion.li>
               ))}
             </ul>
@@ -136,12 +137,12 @@ export const Footer = () => {
                   whileHover={{ x: 4 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.to}
                     className="text-muted-foreground hover:text-primary transition-colors duration-300"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </motion.li>
               ))}
             </ul>
@@ -159,12 +160,12 @@ export const Footer = () => {
                   whileHover={{ x: 4 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.to}
                     className="text-muted-foreground hover:text-primary transition-colors duration-300"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </motion.li>
               ))}
             </ul>
